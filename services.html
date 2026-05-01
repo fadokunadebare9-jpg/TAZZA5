@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — Events by Tazza</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #C8001A;
+    --red-dark: #A30015;
+    --red-light: #FFF0F2;
+    --red-mid: #FFD6DB;
+    --white: #FFFFFF;
+    --off: #FAFAFA;
+    --text: #111111;
+    --text2: #444444;
+    --muted: #888888;
+    --border: #EBEBEB;
+    --dark: #0F0F0F;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: box-shadow .3s;
+  }
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    z-index: 1100;
+  }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px; left: 0; right: 0;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 5%;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1050;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; color: var(--text); font-size: 16px; padding: 10px; border-radius: 8px; transition: background .2s; }
+  .mobile-menu a:hover { background: var(--red-light); color: var(--red); }
+ 
+  .nav-logo img {
+    height: 55px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text2); font-size: 13.5px;
+    padding: 8px 14px; border-radius: 8px; transition: all .2s;
+  }
+  .nav-links a:hover { color: var(--red); background: var(--red-light); }
+  .nav-cta { background: var(--red) !important; color: white !important; border-radius: 50px !important; padding: 10px 22px !important; font-weight: 500 !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 80px; left: 0; right: 0;
+    background: white; padding: 16px 5% 24px; z-index: 999; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu.open { display: flex; }
+
+  .page-hero { padding: 140px 5% 60px; text-align: center; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); margin-bottom: 15px; }
+
+  section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+  .service-card { border: 2px solid var(--red); padding: 32px; border-radius: 20px; transition: 0.3s; background: var(--off); }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(200,0,26,0.12); }
+  .service-card.featured { background: var(--off); }
+  .tier-price { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--red); margin-bottom: 16px; display: block; }
+
+  .cta-link { display: block; text-align: center; background: var(--red); color: white; text-decoration: none; padding: 12px; border-radius: 50px; margin-top: 20px; }
+
+  footer { background: var(--dark); padding: 80px 5% 40px; color: rgba(255,255,255,0.7); }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  
+  /* FIXED FOOTER LOGO CONTAINER */
+  .footer-logo-container {
+    background: white; /* Provides contrast for the black/colored logo */
+    display: inline-block;
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .footer-logo-container img {
+    height: 50px;
+    width: auto;
+    display: block;
+  }
+
+  .footer-col-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: white; margin-bottom: 20px; }
+  .footer-links-list { list-style: none; }
+  .footer-links-list a { color: rgba(255,255,255,0.5); text-decoration: none; display: block; margin-bottom: 10px; }
+  .footer-links-list a:hover { color: white; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="experience.html">The Tazza Experience</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="experience.html">The Tazza Experience</a>
+  <a href="contact.html" class="nav-cta">Contact Us</a>
+</div>
+
+<header class="page-hero">
+  <h1>Our Services</h1>
+  <p>Simplified packages designed to scale with your vision and budget.</p>
+</header>
+
+<section>
+  <div class="grid">
+    <div class="service-card">
+      <h2 style="font-family: 'Playfair Display', serif;">Essential Planning</h2>
+      <span class="tier-price">12% – 15%</span>
+      <ul style="list-style: none; font-size: 14px;">
+        <li>✓ Event concept & mood boards</li>
+        <li>✓ Vendor sourcing</li>
+        <li>✓ Event day coordination</li>
+      </ul>
+      <a href="contact.html" class="cta-link">Get Proposal</a>
+    </div>
+
+    <div class="service-card featured">
+      <h2 style="font-family: 'Playfair Display', serif;">Immersive Planning</h2>
+      <span class="tier-price">10% – 12%</span>
+      <ul style="list-style: none; font-size: 14px;">
+        <li>✓ Full creative direction</li>
+        <li>✓ Budget management</li>
+        <li>✓ Full day coordination team</li>
+      </ul>
+      <a href="contact.html" class="cta-link">Get Proposal</a>
+    </div>
+
+    <div class="service-card">
+      <h2 style="font-family: 'Playfair Display', serif;">Elevated Planning</h2>
+      <span class="tier-price">8% – 10%</span>
+      <ul style="list-style: none; font-size: 14px;">
+        <li>✓ Bespoke experience design</li>
+        <li>✓ Advanced budget strategy</li>
+        <li>✓ Complete event execution</li>
+      </ul>
+      <a href="contact.html" class="cta-link">Get Proposal</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-container">
+          <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo">
+        </div>
+        <p style="font-size:13px;">We craft moments that echo long after the last guest leaves.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Links</div>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-links-list">
+          <li><a href="mailto:eventbytazza@gmail.com">eventbytazza@gmail.com</a></li>
+          <li><a href="https://wa.me/2348106649574">+234 810 664 9574</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 12px;">
+      &copy; 2026 Events by Tazza. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    const isOpen = mobileMenu.classList.contains('open');
+    spans[0].style.transform = isOpen ? 'rotate(45deg) translate(5px, 5px)' : '';
+    spans[1].style.opacity = isOpen ? '0' : '1';
+    spans[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px, -5px)' : '';
+  });
+
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      const spans = hamburger.querySelectorAll('span');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>
