@@ -60,30 +60,21 @@
     .mobile-overlay.active { opacity: 1; visibility: visible; }
 
     /* ── HERO ── */
+    .hero-image { display: none; }
     .hero {
       min-height: 100vh; display: flex; align-items: center; padding: 100px 6% 60px;
-      position: relative; overflow: hidden; background: var(--bg-alt);
+      position: relative; overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image0%20(1).jpeg');
+      background-size: cover; background-position: center;
+      color: white;
     }
-    .hero-inner { display: flex; align-items: center; gap: 60px; width: 100%; max-width: 1400px; margin: 0 auto; }
-    .hero-content { flex: 1; min-width: 0; }
-    .hero-tag { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 16px; display: block; font-weight: 600; }
-    .hero h1 { font-size: clamp(36px, 5vw, 72px); line-height: 1.1; margin-bottom: 24px; color: var(--dark); }
+    .hero-inner { width: 100%; max-width: 1400px; margin: 0 auto; text-align: center; }
+    .hero-content { max-width: 800px; margin: 0 auto; }
+    .hero-tag { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: white; margin-bottom: 20px; display: block; font-weight: 600; }
+    .hero h1 { font-size: clamp(40px, 7vw, 84px); line-height: 1.1; margin-bottom: 24px; color: white; }
     .hero h1 em { color: var(--primary); font-style: italic; }
-    .hero p { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 500px; }
-    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
-
-    .btn { padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 15px; transition: var(--transition); display: inline-block; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--dark); transform: translateY(-2px); }
-    .btn-outline { border: 1px solid var(--border); color: var(--dark); background: white; }
-    .btn-outline:hover { border-color: var(--dark); background: var(--bg-alt); }
-
-    .hero-image {
-      flex: 0 0 45%; max-width: 550px; height: 500px;
-      border-radius: 24px; overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.1);
-    }
-    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hero p { font-size: 20px; color: rgba(255,255,255,0.9); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
     /* ── ABOUT SECTION ── */
     .about { padding: 120px 6%; }
@@ -127,7 +118,7 @@
     /* ── FOOTER ── */
     footer { background: var(--dark); color: white; padding: 80px 6% 40px; }
     .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px; }
-    .footer-logo { height: 40px; width: auto; filter: brightness(0) invert(1); display: block; }
+    .footer-logo { height: 50px; width: auto; display: block; }
     .footer-brand p { color: #888; margin-top: 24px; max-width: 300px; }
     .footer-links h4 { margin-bottom: 24px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
     .footer-links ul { list-style: none; }
@@ -137,10 +128,9 @@
     .footer-bottom { border-top: 1px solid #222; padding-top: 40px; text-align: center; color: #555; font-size: 13px; }
 
     @media (max-width: 1024px) {
-      .hero-inner { flex-direction: column; text-align: center; }
-      .hero-content { order: 2; }
-      .hero-image { order: 1; flex: 0 0 auto; width: 100%; max-width: 100%; height: 350px; border-radius: 16px; }
-      .hero p { margin: 0 auto 40px; }
+      .hero { padding: 80px 20px; }
+      .hero-inner { text-align: center; }
+      .hero h1 { font-size: 48px; }
       .hero-btns { justify-content: center; }
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
       .about-image { height: 300px; }
@@ -170,7 +160,7 @@
       <li><a href="services.html">Services</a></li>
       <li><a href="experience.html">Experience</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+      <li><a href="services.html" class="nav-cta">Get Started</a></li>
     </ul>
     <button class="hamburger" id="hamburger">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -194,15 +184,12 @@
       <div class="hero-inner">
         <div class="hero-content">
           <span class="hero-tag">Precision in Every Detail</span>
-          <h1>Creating <em>Timeless Moments</em> Through Design.</h1>
-          <p>Bespoke event planning and management for those who value flawless execution and sophisticated style.</p>
+          <h1>Creating <em>Timeless Moments</em></h1>
+          <p>Bespoke event planning for those who value flawless execution and sophisticated style.</p>
           <div class="hero-btns">
             <a href="services.html" class="btn btn-primary">Explore Services</a>
-            <a href="contact.html" class="btn btn-outline">Contact Us</a>
+            <a href="contact.html" class="btn btn-outline" style="background:transparent; color:white; border-color:white;">Contact Us</a>
           </div>
-        </div>
-        <div class="hero-image">
-          <img src="image0%20(1).jpeg" alt="Elegant event setup by Tazza">
         </div>
       </div>
     </section>
@@ -211,14 +198,13 @@
     <section class="about">
       <div class="about-inner">
         <div class="about-image">
-          <img src="image1.jpeg" alt="Behind the scenes event planning">
+          <img src="image1.jpeg" alt="Event planning">
         </div>
         <div class="about-content">
           <span class="section-tag">Who We Are</span>
-          <h2>Crafting Experiences That Speak for Themselves</h2>
-          <p>Events by Tazza is a premium event planning studio dedicated to transforming your vision into reality. We specialize in designing bespoke experiences that are as unique as the people behind them.</p>
-          <p>From intimate gatherings to grand celebrations, our team brings meticulous attention to detail, creative flair, and seamless coordination to every event we touch. We don't just plan events — we craft memories that last a lifetime.</p>
-          <a href="experience.html" class="btn btn-outline">See Our Process</a>
+          <h2>Crafting Experiences</h2>
+          <p>Events by Tazza is a premium event planning studio dedicated to transforming your vision into reality. We specialize in bespoke experiences as unique as you.</p>
+          <a href="experience.html" class="btn btn-outline">Our Process</a>
         </div>
       </div>
     </section>
@@ -233,17 +219,17 @@
         <div class="service-card">
           <span class="service-icon">💍</span>
           <h3>Weddings</h3>
-          <p>Curated experiences designed to reflect your unique love story, from concept to the last dance. We handle everything — décor, vendors, timelines, and the magic in between.</p>
+          <p>Reflecting your unique love story through curated experiences.</p>
         </div>
         <div class="service-card">
           <span class="service-icon">🏢</span>
-          <h3>Corporate Events</h3>
-          <p>Strategic planning for brand launches, conferences, and galas that leave a lasting impression. We ensure your brand message shines through every touchpoint.</p>
+          <h3>Corporate</h3>
+          <p>Strategic planning for brand launches and conferences.</p>
         </div>
         <div class="service-card">
           <span class="service-icon">🎉</span>
           <h3>Private Galas</h3>
-          <p>Unforgettable milestone celebrations handled with absolute care and discretion. Birthdays, anniversaries, and exclusive gatherings designed to impress.</p>
+          <p>Unforgettable milestone celebrations handled with care.</p>
         </div>
       </div>
     </section>
@@ -258,22 +244,18 @@
         <div class="why-card">
           <span class="why-number">50+</span>
           <h3>Events Delivered</h3>
-          <p>Successful events across weddings, corporate launches, and private celebrations.</p>
         </div>
         <div class="why-card">
           <span class="why-number">100%</span>
           <h3>Client Satisfaction</h3>
-          <p>Every client walks away with memories that exceed their expectations.</p>
         </div>
         <div class="why-card">
           <span class="why-number">24/7</span>
           <h3>Dedicated Support</h3>
-          <p>Round-the-clock coordination from the first consultation to the final farewell.</p>
         </div>
         <div class="why-card">
           <span class="why-number">5★</span>
           <h3>Premium Quality</h3>
-          <p>Only the finest vendors, venues, and creative talent make our roster.</p>
         </div>
       </div>
     </section>
