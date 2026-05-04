@@ -4,139 +4,74 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Services — Events by Tazza</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --red: #C8001A;
-    --red-dark: #A30015;
-    --red-light: #FFF0F2;
-    --red-mid: #FFD6DB;
-    --white: #FFFFFF;
-    --off: #FAFAFA;
-    --text: #111111;
-    --text2: #444444;
-    --muted: #888888;
-    --border: #EBEBEB;
-    --dark: #0F0F0F;
+    --primary: #B31B1B;
+    --dark: #121212;
+    --text: #2D2D2D;
+    --text-muted: #666666;
+    --bg: #FFFFFF;
+    --bg-alt: #FBFBFB;
+    --border: #EEEEEE;
+    --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text);
-    background: var(--white);
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+  body { font-family: 'Outfit', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
   .navbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    background: rgba(255,255,255,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 5%;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: box-shadow .3s;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.8); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); padding: 0 6%; height: 80px;
+    display: flex; align-items: center; justify-content: space-between;
   }
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    z-index: 1100;
+  .nav-logo img { height: 48px; width: auto; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: 14px; transition: var(--transition); }
+  .nav-links a:hover { color: var(--primary); }
+  .nav-cta { background: var(--dark); color: white !important; padding: 12px 24px; border-radius: 50px; font-weight: 500; }
+
+  .page-header { padding: 160px 6% 60px; text-align: center; background: var(--bg-alt); }
+  .page-header h1 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; color: var(--dark); }
+  .page-header p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+  .services-section { padding: 100px 6%; max-width: 1200px; margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+
+  .service-card {
+    padding: 48px; border: 1px solid var(--border); border-radius: var(--radius);
+    transition: var(--transition); background: white;
   }
-  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+  .service-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+  .service-card h2 { font-size: 28px; margin-bottom: 12px; }
+  .tier-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin-bottom: 24px; display: block; }
+  .service-features { list-style: none; margin-bottom: 32px; }
+  .service-features li { margin-bottom: 12px; color: var(--text-muted); font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .service-features li::before { content: '→'; color: var(--primary); font-weight: bold; }
 
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 80px; left: 0; right: 0;
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 20px 5%;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1050;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  .btn-proposal {
+    display: block; text-align: center; background: var(--dark); color: white;
+    text-decoration: none; padding: 14px; border-radius: 50px; font-weight: 500;
+    transition: var(--transition);
   }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a { text-decoration: none; color: var(--text); font-size: 16px; padding: 10px; border-radius: 8px; transition: background .2s; }
-  .mobile-menu a:hover { background: var(--red-light); color: var(--red); }
- 
-  .nav-logo img {
-    height: 55px;
-    width: auto;
-    display: block;
-  }
+  .btn-proposal:hover { background: var(--primary); }
 
-  .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--text2); font-size: 13.5px;
-    padding: 8px 14px; border-radius: 8px; transition: all .2s;
-  }
-  .nav-links a:hover { color: var(--red); background: var(--red-light); }
-  .nav-cta { background: var(--red) !important; color: white !important; border-radius: 50px !important; padding: 10px 22px !important; font-weight: 500 !important; }
-
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-  .hamburger span { width: 24px; height: 2px; background: var(--text); }
-
-  .mobile-menu {
-    display: none; position: fixed; top: 80px; left: 0; right: 0;
-    background: white; padding: 16px 5% 24px; z-index: 999; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--border);
-  }
-  .mobile-menu.open { display: flex; }
-
-  .page-hero { padding: 140px 5% 60px; text-align: center; }
-  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); margin-bottom: 15px; }
-
-  section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-
-  .service-card { border: 2px solid var(--red); padding: 32px; border-radius: 20px; transition: 0.3s; background: var(--off); }
-  .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(200,0,26,0.12); }
-  .service-card.featured { background: var(--off); }
-  .tier-price { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--red); margin-bottom: 16px; display: block; }
-
-  .cta-link { display: block; text-align: center; background: var(--red); color: white; text-decoration: none; padding: 12px; border-radius: 50px; margin-top: 20px; }
-
-  footer { background: var(--dark); padding: 80px 5% 40px; color: rgba(255,255,255,0.7); }
-  .footer-inner { max-width: 1100px; margin: 0 auto; }
-  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
-  
-  /* FIXED FOOTER LOGO CONTAINER */
-  .footer-logo-container {
-    background: white; /* Provides contrast for the black/colored logo */
-    display: inline-block;
-    padding: 8px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-  }
-  .footer-logo-container img {
-    height: 50px;
-    width: auto;
-    display: block;
-  }
-
-  .footer-col-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: white; margin-bottom: 20px; }
-  .footer-links-list { list-style: none; }
-  .footer-links-list a { color: rgba(255,255,255,0.5); text-decoration: none; display: block; margin-bottom: 10px; }
-  .footer-links-list a:hover { color: white; }
+  footer { background: var(--dark); color: white; padding: 80px 6% 40px; }
+  .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px; }
+  .footer-brand p { color: #888; margin-top: 24px; max-width: 300px; }
+  .footer-links h4 { margin-bottom: 24px; font-size: 14px; text-transform: uppercase; color: var(--primary); }
+  .footer-links ul { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a { color: #CCC; text-decoration: none; font-size: 15px; }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .footer-top { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .footer-brand p { margin: 24px auto 0; }
   }
 </style>
 </head>
@@ -144,121 +79,85 @@
 
 <nav class="navbar">
   <a href="index.html" class="nav-logo">
-    <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo">
+    <img src="Tazza Black SVG (1).svg" alt="Logo">
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
-    <li><a href="experience.html">The Tazza Experience</a></li>
-    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Started</a></li>
   </ul>
-  <button class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
-  <a href="experience.html">The Tazza Experience</a>
-  <a href="contact.html" class="nav-cta">Contact Us</a>
-</div>
-
-<header class="page-hero">
+<header class="page-header">
   <h1>Our Services</h1>
-  <p>Simplified packages designed to scale with your vision and budget.</p>
+  <p>Sophisticated planning packages tailored to your vision and requirements.</p>
 </header>
 
-<section>
-  <div class="grid">
+<main class="services-section">
+  <div class="services-grid">
     <div class="service-card">
-      <h2 style="font-family: 'Playfair Display', serif;">Essential Planning</h2>
-      <span class="tier-price">12% – 15%</span>
-      <ul style="list-style: none; font-size: 14px;">
-        <li>✓ Event concept & mood boards</li>
-        <li>✓ Vendor sourcing</li>
-        <li>✓ Event day coordination</li>
+      <h2>Essential</h2>
+      <span class="tier-price">Consultation & Coordination</span>
+      <ul class="service-features">
+        <li>Event concept & mood boards</li>
+        <li>Vendor sourcing & selection</li>
+        <li>On-site event day coordination</li>
       </ul>
-      <a href="contact.html" class="cta-link">Get Proposal</a>
-    </div>
-
-    <div class="service-card featured">
-      <h2 style="font-family: 'Playfair Display', serif;">Immersive Planning</h2>
-      <span class="tier-price">10% – 12%</span>
-      <ul style="list-style: none; font-size: 14px;">
-        <li>✓ Full creative direction</li>
-        <li>✓ Budget management</li>
-        <li>✓ Full day coordination team</li>
-      </ul>
-      <a href="contact.html" class="cta-link">Get Proposal</a>
+      <a href="contact.html" class="btn-proposal">Request Proposal</a>
     </div>
 
     <div class="service-card">
-      <h2 style="font-family: 'Playfair Display', serif;">Elevated Planning</h2>
-      <span class="tier-price">8% – 10%</span>
-      <ul style="list-style: none; font-size: 14px;">
-        <li>✓ Bespoke experience design</li>
-        <li>✓ Advanced budget strategy</li>
-        <li>✓ Complete event execution</li>
+      <h2>Immersive</h2>
+      <span class="tier-price">Full Creative Direction</span>
+      <ul class="service-features">
+        <li>Comprehensive creative strategy</li>
+        <li>Budget management & oversight</li>
+        <li>Full event management team</li>
       </ul>
-      <a href="contact.html" class="cta-link">Get Proposal</a>
+      <a href="contact.html" class="btn-proposal">Request Proposal</a>
+    </div>
+
+    <div class="service-card">
+      <h2>Elevated</h2>
+      <span class="tier-price">Bespoke Execution</span>
+      <ul class="service-features">
+        <li>Custom experience design</li>
+        <li>Advanced logistical planning</li>
+        <li>Complete end-to-end management</li>
+      </ul>
+      <a href="contact.html" class="btn-proposal">Request Proposal</a>
     </div>
   </div>
-</section>
+</main>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo-container">
-          <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo">
-        </div>
-        <p style="font-size:13px;">We craft moments that echo long after the last guest leaves.</p>
-      </div>
-      <div>
-        <div class="footer-col-title">Links</div>
-        <ul class="footer-links-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Connect</div>
-        <ul class="footer-links-list">
-          <li><a href="mailto:eventbytazza@gmail.com">eventbytazza@gmail.com</a></li>
-          <li><a href="https://wa.me/2348106649574">+234 810 664 9574</a></li>
-        </ul>
-      </div>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="Tazza Black SVG (1).svg" alt="Logo" style="filter: brightness(0) invert(1); height: 40px;">
+      <p>Precision in Planning. Unforgettable in Execution.</p>
     </div>
-    <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 12px;">
-      &copy; 2026 Events by Tazza. All rights reserved.
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:eventbytazza@gmail.com">Email Us</a></li>
+        <li><a href="https://wa.me/2348106649574">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align: center; color: #555; font-size: 13px; border-top: 1px solid #222; padding-top: 40px;">
+    &copy; 2026 Events by Tazza. All rights reserved.
   </div>
 </footer>
 
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
-    const spans = hamburger.querySelectorAll('span');
-    const isOpen = mobileMenu.classList.contains('open');
-    spans[0].style.transform = isOpen ? 'rotate(45deg) translate(5px, 5px)' : '';
-    spans[1].style.opacity = isOpen ? '0' : '1';
-    spans[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px, -5px)' : '';
-  });
-
-  document.querySelectorAll('.mobile-menu a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      const spans = hamburger.querySelectorAll('span');
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '1';
-      spans[2].style.transform = '';
-    });
-  });
-</script>
 </body>
 </html>
