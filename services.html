@@ -1,326 +1,709 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Services — Events by Tazza</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --primary: #B31B1B;
-    --dark: #121212;
-    --text: #2D2D2D;
-    --text-muted: #666666;
-    --bg: #FFFFFF;
-    --bg-alt: #FBFBFB;
-    --border: #EEEEEE;
-    --radius: 12px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Events by Tazza</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #B31B1B;
+      --dark: #121212;
+      --text: #2D2D2D;
+      --text-muted: #666666;
+      --bg: #FFFFFF;
+      --bg-alt: #FBFBFB;
+      --border: #EEEEEE;
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Outfit', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border); padding: 0 6%; height: 80px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo img { height: 48px; width: auto; }
-  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--text); font-size: 14px; transition: var(--transition); }
-  .nav-links a:hover { color: var(--primary); }
-  .nav-cta { background: var(--dark); color: white !important; padding: 12px 24px; border-radius: 50px; font-weight: 500; }
-  .nav-cta:hover { background: var(--primary); transform: translateY(-2px); }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .hamburger { display: none; cursor: pointer; background: none; border: none; color: var(--dark); z-index: 1100; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-  .mobile-menu {
-    position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
-    background: var(--bg); z-index: 1050; padding: 100px 40px;
-    transition: var(--transition); box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-    display: flex; flex-direction: column; gap: 24px;
-  }
-  .mobile-menu.active { right: 0; }
-  .mobile-menu a { font-size: 20px; text-decoration: none; color: var(--dark); font-weight: 500; }
+    h1,
+    h2,
+    h3 {
+      font-family: 'Playfair Display', serif;
+    }
 
-  .mobile-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(0,0,0,0.5); z-index: 1040; opacity: 0; visibility: hidden; transition: var(--transition);
-  }
-  .mobile-overlay.active { opacity: 1; visibility: visible; }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 6%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .page-header { padding: 160px 6% 60px; text-align: center; background: var(--bg-alt); }
-  .page-header h1 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; color: var(--dark); }
-  .page-header p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+    }
 
-  .services-section { padding: 100px 6%; max-width: 1200px; margin: 0 auto; }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
 
-  .service-card {
-    padding: 48px; border: 1px solid var(--border); border-radius: var(--radius);
-    transition: var(--transition); background: white;
-  }
-  .service-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-  .service-card h2 { font-size: 28px; margin-bottom: 12px; }
-  .tier-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); margin-bottom: 24px; display: block; }
-  .service-features { list-style: none; margin-bottom: 32px; }
-  .service-features li { margin-bottom: 12px; color: var(--text-muted); font-size: 15px; display: flex; align-items: center; gap: 10px; }
-  .service-features li::before { content: '→'; color: var(--primary); font-weight: bold; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      transition: var(--transition);
+    }
 
-  .btn-proposal {
-    display: block; text-align: center; background: var(--dark); color: white;
-    text-decoration: none; padding: 14px; border-radius: 50px; font-weight: 500;
-    transition: var(--transition);
-  }
-  .btn-proposal:hover { background: var(--primary); }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
 
-  /* ── APPROACH SECTION ── */
-  .approach { padding: 100px 6%; background: var(--bg-alt); }
-  .approach .section-header { text-align: center; margin-bottom: 60px; }
-  .approach .section-header h2 { font-size: 36px; color: var(--dark); margin-bottom: 12px; }
-  .approach .section-header p { color: var(--text-muted); font-size: 18px; max-width: 550px; margin: 0 auto; }
-  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto; }
-  .approach-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
-  .approach-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-  .approach-img { width: 100%; height: 200px; overflow: hidden; }
-  .approach-img img { width: 100%; height: 100%; object-fit: cover; }
-  .approach-info { padding: 32px 24px; text-align: center; }
-  .approach-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); display: block; margin-bottom: 8px; }
-  .approach-card h3 { font-size: 20px; margin-bottom: 12px; color: var(--dark); }
-  .approach-card p { color: var(--text-muted); font-size: 15px; }
+    .nav-cta {
+      background: var(--dark);
+      color: white !important;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 500;
+    }
 
-  /* ── GALLERY ── */
-  .gallery-section { padding: 80px 6%; text-align: center; }
-  .gallery-section h2 { margin-bottom: 16px; font-size: 36px; color: var(--dark); }
-  .gallery-section > p { color: var(--text-muted); font-size: 18px; max-width: 500px; margin: 0 auto 40px; }
-  .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1000px; margin: 0 auto; }
-  .gallery-img { width: 100%; height: 400px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-  .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .gallery-img:hover img { transform: scale(1.05); }
+    .nav-cta:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
 
-  /* ── CTA ── */
-  .cta-section { padding: 100px 6%; text-align: center; background: var(--dark); }
-  .cta-section h2 { font-size: clamp(28px, 4vw, 40px); color: white; margin-bottom: 16px; }
-  .cta-section p { color: #999; font-size: 18px; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-  .cta-section .btn { background: var(--primary); color: white; padding: 16px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; transition: var(--transition); }
-  .cta-section .btn:hover { background: white; color: var(--dark); transform: translateY(-2px); }
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--dark);
+      z-index: 1100;
+    }
 
-  footer { background: var(--dark); color: white; padding: 80px 6% 40px; }
-  .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px; }
-  .footer-logo { height: 50px; width: auto; display: block; }
-  .footer-brand p { color: #888; margin-top: 24px; max-width: 300px; }
-  .footer-links h4 { margin-bottom: 24px; font-size: 14px; text-transform: uppercase; color: var(--primary); }
-  .footer-links ul { list-style: none; }
-  .footer-links li { margin-bottom: 12px; }
-  .footer-links a { color: #CCC; text-decoration: none; font-size: 15px; transition: var(--transition); }
-  .footer-links a:hover { color: white; }
-  .footer-bottom { border-top: 1px solid #222; padding-top: 40px; text-align: center; color: #555; font-size: 13px; }
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      height: 100vh;
+      background: var(--bg);
+      z-index: 1050;
+      padding: 100px 40px;
+      transition: var(--transition);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hamburger { display: block; }
-    .navbar { padding: 0 20px; }
-    .gallery-grid { grid-template-columns: 1fr; }
-    .gallery-img { height: 280px; }
-    .footer-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-    .footer-logo { margin: 0 auto; }
-    .footer-brand p { margin: 24px auto 0; }
-  }
-</style>
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      font-size: 20px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1040;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-header {
+      padding: 160px 6% 60px;
+      text-align: center;
+      background: var(--bg-alt);
+    }
+
+    .page-header h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .page-header p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .services-section {
+      padding: 100px 6%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .service-card {
+      padding: 48px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      background: white;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .service-card h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .tier-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .service-features li {
+      margin-bottom: 12px;
+      color: var(--text-muted);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .service-features li::before {
+      content: '→';
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .btn-proposal {
+      display: block;
+      text-align: center;
+      background: var(--dark);
+      color: white;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn-proposal:hover {
+      background: var(--primary);
+    }
+
+    /* ── APPROACH SECTION ── */
+    .approach {
+      padding: 100px 6%;
+      background: var(--bg-alt);
+    }
+
+    .approach .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .approach .section-header h2 {
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .approach .section-header p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .approach-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .approach-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+
+    .approach-img {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .approach-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .approach-info {
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .approach-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .approach-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .approach-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      padding: 80px 6%;
+      text-align: center;
+    }
+
+    .gallery-section h2 {
+      margin-bottom: 16px;
+      font-size: 36px;
+      color: var(--dark);
+    }
+
+    .gallery-section>p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 400px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .gallery-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-img:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 100px 6%;
+      text-align: center;
+      background: var(--dark);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: #999;
+      font-size: 18px;
+      margin-bottom: 40px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section .btn {
+      background: var(--primary);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: var(--transition);
+    }
+
+    .cta-section .btn:hover {
+      background: white;
+      color: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 80px 6% 40px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 60px;
+    }
+
+    .footer-logo {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-brand p {
+      color: #888;
+      margin-top: 24px;
+      max-width: 300px;
+    }
+
+    .footer-links h4 {
+      margin-bottom: 24px;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #CCC;
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #222;
+      padding-top: 40px;
+      text-align: center;
+      color: #555;
+      font-size: 13px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .navbar {
+        padding: 0 20px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-img {
+        height: 280px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        margin: 0 auto;
+      }
+
+      .footer-brand p {
+        margin: 24px auto 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <a href="index.html" class="nav-logo">
-    <img src="Tazza Black SVG (1).svg" alt="Logo">
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="experience.html">Experience</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="services.html" class="nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-  </button>
-</nav>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="Tazza Black SVG (1).svg" alt="Logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="services.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
 
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Home</a>
-  <a href="services.html">Services</a>
-  <a href="experience.html">Experience</a>
-  <a href="contact.html">Contact Us</a>
-</div>
-
-<header class="page-header">
-  <h1>Our Services</h1>
-  <p>Sophisticated planning packages tailored to your vision and requirements. Every event is a masterpiece waiting to happen.</p>
-</header>
-
-<main class="services-section">
-  <div class="services-grid">
-    <div class="service-card">
-      <h2>Essential</h2>
-      <span class="tier-price">Consultation & Coordination</span>
-      <ul class="service-features">
-        <li>Event concept & mood boards</li>
-        <li>Vendor sourcing</li>
-        <li>On-site coordination</li>
-        <li>Timeline management</li>
-      </ul>
-      <a href="contact.html" class="btn-proposal">Request Proposal</a>
-    </div>
-
-    <div class="service-card">
-      <h2>Immersive</h2>
-      <span class="tier-price">Full Creative Direction</span>
-      <ul class="service-features">
-        <li>Creative strategy</li>
-        <li>Budget management</li>
-        <li>Full management team</li>
-        <li>Custom décor styling</li>
-      </ul>
-      <a href="contact.html" class="btn-proposal">Request Proposal</a>
-    </div>
-
-    <div class="service-card">
-      <h2>Elevated</h2>
-      <span class="tier-price">Bespoke Execution</span>
-      <ul class="service-features">
-        <li>Custom experience design</li>
-        <li>Advanced logistics</li>
-        <li>End-to-end management</li>
-        <li>VIP hospitality</li>
-      </ul>
-      <a href="contact.html" class="btn-proposal">Request Proposal</a>
-    </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html">Contact Us</a>
   </div>
-</main>
 
-<!-- OUR APPROACH -->
-<section class="approach">
-  <div class="section-header">
-    <h2>Our Approach</h2>
-    <p>A proven process that ensures every event exceeds expectations.</p>
-  </div>
-  <div class="approach-grid">
-    <div class="approach-card">
-      <div class="approach-img">
-        <img src="image2.jpeg" alt="Discovery">
-      </div>
-      <div class="approach-info">
-        <span class="approach-num">01</span>
-        <h3>Discovery</h3>
-        <p>We listen closely to understand your vision and goals through an in-depth consultation.</p>
-      </div>
-    </div>
-    <div class="approach-card">
-      <div class="approach-img">
-        <img src="image3.jpeg" alt="Design">
-      </div>
-      <div class="approach-info">
-        <span class="approach-num">02</span>
-        <h3>Design</h3>
-        <p>Our creative team develops mood boards and a comprehensive plan tailored to your event.</p>
-      </div>
-    </div>
-    <div class="approach-card">
-      <div class="approach-img">
-        <img src="WhatsApp%20Image%202026-05-04%20at%2012.09.02.jpeg" alt="Coordinate">
-      </div>
-      <div class="approach-info">
-        <span class="approach-num">03</span>
-        <h3>Coordinate</h3>
-        <p>We manage all vendor relationships and logistics with meticulous precision.</p>
-      </div>
-    </div>
-    <div class="approach-card">
-      <div class="approach-img">
-        <img src="WhatsApp%20Image%202026-05-04%20at%2012.10.48.jpeg" alt="Execute">
-      </div>
-      <div class="approach-info">
-        <span class="approach-num">04</span>
-        <h3>Execute</h3>
-        <p>On the day, our team handles everything seamlessly so you can enjoy every moment.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <header class="page-header">
+    <h1>Our Services</h1>
+    <p>Sophisticated planning packages tailored to your vision and requirements. Every event is a masterpiece waiting to
+      happen.</p>
+  </header>
 
-<!-- GALLERY -->
-<section class="gallery-section">
-  <h2>Our Work in Focus</h2>
-  <p>Glimpse into the worlds we create.</p>
-  <div class="gallery-grid">
-    <div class="gallery-img">
-      <img src="WhatsApp%20Image%202026-05-04%20at%2012.11.09.jpeg" alt="Event décor">
-    </div>
-    <div class="gallery-img">
-      <img src="image1.jpeg" alt="Venue styling">
-    </div>
-  </div>
-</section>
+  <main class="services-section">
+    <div class="services-grid">
+      <div class="service-card">
+        <h2>Essential</h2>
+        <span class="tier-price">Consultation & Coordination</span>
+        <ul class="service-features">
+          <li>Event concept & mood boards</li>
+          <li>Vendor sourcing</li>
+          <li>On-site coordination</li>
+          <li>Timeline management</li>
+        </ul>
+        <a href="contact.html" class="btn-proposal">Request Proposal</a>
+      </div>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2>Let's Create Your Perfect Event</h2>
-  <p>Tell us about your vision and we'll craft a bespoke proposal just for you.</p>
-  <a href="contact.html" class="btn">Get in Touch</a>
-</section>
+      <div class="service-card">
+        <h2>Immersive</h2>
+        <span class="tier-price">Full Creative Direction</span>
+        <ul class="service-features">
+          <li>Creative strategy</li>
+          <li>Budget management</li>
+          <li>Full management team</li>
+          <li>Custom décor styling</li>
+          <li>Complementary honeymoon decoration</li>
+          <li>Custom event styling</li>
+        </ul>
+        <a href="contact.html" class="btn-proposal">Request Proposal</a>
+      </div>
 
-<footer>
-  <div class="footer-content">
-    <div class="footer-brand">
-      <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo" class="footer-logo">
-      <p>Precision in Planning. Unforgettable in Execution.</p>
+      <div class="service-card">
+        <h2>Elevated</h2>
+        <span class="tier-price">Bespoke Execution</span>
+        <ul class="service-features">
+          <li>Custom experience design</li>
+          <li>Advanced logistics</li>
+          <li>End-to-end management</li>
+          <li>VIP hospitality</li>
+          <li>Honeymoon decoration</li>
+          <li>Bridal Assistant</li>
+        </ul>
+        <a href="contact.html" class="btn-proposal">Request Proposal</a>
+      </div>
     </div>
-    <div class="footer-links">
-      <h4>Explore</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="experience.html">Experience</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+  </main>
+
+  <!-- OUR APPROACH -->
+  <section class="approach">
+    <div class="section-header">
+      <h2>Our Approach</h2>
+      <p>A proven process that ensures every event exceeds expectations.</p>
     </div>
-    <div class="footer-links">
-      <h4>Connect</h4>
-      <ul>
-        <li><a href="mailto:eventbytazza@gmail.com">Email Us</a></li>
-        <li><a href="https://wa.me/2348106649574">WhatsApp</a></li>
-      </ul>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="approach-img">
+          <img src="image2.jpeg" alt="Discovery">
+        </div>
+        <div class="approach-info">
+          <span class="approach-num">01</span>
+          <h3>Discovery</h3>
+          <p>We listen closely to understand your vision and goals through an in-depth consultation.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-img">
+          <img src="image3.jpeg" alt="Design">
+        </div>
+        <div class="approach-info">
+          <span class="approach-num">02</span>
+          <h3>Design</h3>
+          <p>Our creative team develops mood boards and a comprehensive plan tailored to your event.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-img">
+          <img src="WhatsApp%20Image%202026-05-04%20at%2012.09.02.jpeg" alt="Coordinate">
+        </div>
+        <div class="approach-info">
+          <span class="approach-num">03</span>
+          <h3>Coordinate</h3>
+          <p>We manage all vendor relationships and logistics with meticulous precision.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-img">
+          <img src="WhatsApp%20Image%202026-05-04%20at%2012.10.48.jpeg" alt="Execute">
+        </div>
+        <div class="approach-info">
+          <span class="approach-num">04</span>
+          <h3>Execute</h3>
+          <p>On the day, our team handles everything seamlessly so you can enjoy every moment.</p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; 2026 Events by Tazza. All rights reserved.
-  </div>
-</footer>
+  </section>
 
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileOverlay = document.getElementById('mobileOverlay');
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <h2>Our Work in Focus</h2>
+    <p>Glimpse into the worlds we create.</p>
+    <div class="gallery-grid">
+      <div class="gallery-img">
+        <img src="WhatsApp%20Image%202026-05-04%20at%2012.11.09.jpeg" alt="Event décor">
+      </div>
+      <div class="gallery-img">
+        <img src="image1.jpeg" alt="Venue styling">
+      </div>
+    </div>
+  </section>
 
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    mobileOverlay.classList.toggle('active');
-  });
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Let's Create Your Perfect Event</h2>
+    <p>Tell us about your vision and we'll craft a bespoke proposal just for you.</p>
+    <a href="contact.html" class="btn">Get in Touch</a>
+  </section>
 
-  mobileOverlay.addEventListener('click', () => {
-    mobileMenu.classList.remove('active');
-    mobileOverlay.classList.remove('active');
-  });
-</script>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="Tazza Black SVG (1).svg" alt="Events by Tazza Logo" class="footer-logo">
+        <p>Precision in Planning. Unforgettable in Execution.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:eventbytazza@gmail.com">Email Us</a></li>
+          <li><a href="https://wa.me/2348106649574">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/events_by_tazza?igsh=OGw5NzluMndqanI0">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Events by Tazza. All rights reserved.
+    </div>
+  </footer>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+    });
+  </script>
 
 </body>
+
 </html>
