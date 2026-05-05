@@ -83,9 +83,13 @@
   .approach .section-header { text-align: center; margin-bottom: 60px; }
   .approach .section-header h2 { font-size: 36px; color: var(--dark); margin-bottom: 12px; }
   .approach .section-header p { color: var(--text-muted); font-size: 18px; max-width: 550px; margin: 0 auto; }
-  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto; }
-  .approach-card { text-align: center; padding: 32px 20px; }
-  .approach-num { font-family: 'Playfair Display', serif; font-size: 42px; color: var(--primary); display: block; margin-bottom: 16px; }
+  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto; }
+  .approach-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
+  .approach-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+  .approach-img { width: 100%; height: 200px; overflow: hidden; }
+  .approach-img img { width: 100%; height: 100%; object-fit: cover; }
+  .approach-info { padding: 32px 24px; text-align: center; }
+  .approach-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); display: block; margin-bottom: 8px; }
   .approach-card h3 { font-size: 20px; margin-bottom: 12px; color: var(--dark); }
   .approach-card p { color: var(--text-muted); font-size: 15px; }
 
@@ -211,24 +215,44 @@
   </div>
   <div class="approach-grid">
     <div class="approach-card">
-      <span class="approach-num">01</span>
-      <h3>Discovery</h3>
-      <p>We listen closely to understand your vision, preferences, and goals through an in-depth consultation.</p>
+      <div class="approach-img">
+        <img src="image2.jpeg" alt="Discovery">
+      </div>
+      <div class="approach-info">
+        <span class="approach-num">01</span>
+        <h3>Discovery</h3>
+        <p>We listen closely to understand your vision and goals through an in-depth consultation.</p>
+      </div>
     </div>
     <div class="approach-card">
-      <span class="approach-num">02</span>
-      <h3>Design</h3>
-      <p>Our creative team develops mood boards, layouts, and a comprehensive plan tailored to your event.</p>
+      <div class="approach-img">
+        <img src="image3.jpeg" alt="Design">
+      </div>
+      <div class="approach-info">
+        <span class="approach-num">02</span>
+        <h3>Design</h3>
+        <p>Our creative team develops mood boards and a comprehensive plan tailored to your event.</p>
+      </div>
     </div>
     <div class="approach-card">
-      <span class="approach-num">03</span>
-      <h3>Coordinate</h3>
-      <p>We manage all vendor relationships, logistics, and timelines with meticulous precision.</p>
+      <div class="approach-img">
+        <img src="WhatsApp%20Image%202026-05-04%20at%2012.09.02.jpeg" alt="Coordinate">
+      </div>
+      <div class="approach-info">
+        <span class="approach-num">03</span>
+        <h3>Coordinate</h3>
+        <p>We manage all vendor relationships and logistics with meticulous precision.</p>
+      </div>
     </div>
     <div class="approach-card">
-      <span class="approach-num">04</span>
-      <h3>Execute</h3>
-      <p>On the day, our team handles everything seamlessly so you can enjoy every moment.</p>
+      <div class="approach-img">
+        <img src="WhatsApp%20Image%202026-05-04%20at%2012.10.48.jpeg" alt="Execute">
+      </div>
+      <div class="approach-info">
+        <span class="approach-num">04</span>
+        <h3>Execute</h3>
+        <p>On the day, our team handles everything seamlessly so you can enjoy every moment.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -236,13 +260,13 @@
 <!-- GALLERY -->
 <section class="gallery-section">
   <h2>Our Work in Focus</h2>
-  <p>Every event tells a story. Here's a glimpse into the worlds we create.</p>
+  <p>Glimpse into the worlds we create.</p>
   <div class="gallery-grid">
     <div class="gallery-img">
-      <img src="image2.jpeg" alt="Elegant event décor setup">
+      <img src="WhatsApp%20Image%202026-05-04%20at%2012.11.09.jpeg" alt="Event décor">
     </div>
     <div class="gallery-img">
-      <img src="image3.jpeg" alt="Stunning event venue styling">
+      <img src="image1.jpeg" alt="Venue styling">
     </div>
   </div>
 </section>

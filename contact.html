@@ -57,30 +57,18 @@
   .page-header h1 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; color: var(--dark); }
   .page-header p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 
-  .contact-section { padding: 100px 6%; max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .contact-form { background: white; border: 1px solid var(--border); padding: 48px; border-radius: var(--radius); box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
+  .contact-section { padding: 120px 6%; max-width: 1400px; margin: 0 auto; min-height: 80vh; display: flex; align-items: center; justify-content: center; position: relative; }
+  .contact-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; border-radius: 30px; overflow: hidden; }
+  .contact-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .contact-bg::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+
+  .contact-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; width: 100%; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 24px; padding: 60px; color: white; }
   
-  .form-group { margin-bottom: 24px; }
-  .form-group label { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--text-muted); font-weight: 500; }
-  .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px;
-    font-family: inherit; font-size: 15px; color: var(--text); background: var(--bg-alt); transition: var(--transition);
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); background: white; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-
-  .submit-btn {
-    width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 50px;
-    font-size: 16px; font-weight: 600; cursor: pointer; transition: var(--transition);
-  }
-  .submit-btn:hover { background: var(--dark); transform: translateY(-2px); }
-
-  .contact-info { padding: 20px; }
-  .contact-info h2 { font-size: 32px; margin-bottom: 24px; }
-  .contact-info p { color: var(--text-muted); margin-bottom: 32px; }
-  .contact-img { width: 100%; border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-  .contact-img img { width: 100%; height: auto; display: block; }
+  .contact-info { padding-right: 40px; }
+  .contact-info h2 { font-size: 48px; margin-bottom: 24px; color: white; }
+  .contact-info p { color: rgba(255,255,255,0.8); margin-bottom: 40px; font-size: 18px; }
+  
+  .contact-form { background: white; padding: 48px; border-radius: 16px; color: var(--dark); box-shadow: 0 40px 80px rgba(0,0,0,0.1); }
 
   footer { background: var(--dark); color: white; padding: 80px 6% 40px; }
   .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px; }
@@ -93,14 +81,17 @@
   .footer-links a:hover { color: white; }
   .footer-bottom { border-top: 1px solid #222; padding-top: 40px; text-align: center; color: #555; font-size: 13px; }
 
-  @media (max-width: 900px) {
-    .contact-section { grid-template-columns: 1fr; gap: 40px; }
+  @media (max-width: 1024px) {
+    .contact-container { grid-template-columns: 1fr; padding: 40px; }
+    .contact-info { padding-right: 0; text-align: center; }
   }
-
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hamburger { display: block; }
     .navbar { padding: 0 20px; }
+    .contact-section { padding: 80px 20px; }
+    .contact-container { padding: 30px 20px; border-radius: 16px; }
+    .contact-info h2 { font-size: 32px; }
     .form-row { grid-template-columns: 1fr; gap: 0; }
     .footer-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
     .footer-logo { margin: 0 auto; }
@@ -144,47 +135,59 @@
 </header>
 
 <main class="contact-section">
-  <div class="contact-info">
-    <h2>Let's Start Your Journey</h2>
-    <p>Whether you're planning a wedding, a corporate launch, or a private gala, we're here to make it unforgettable.</p>
-    <div class="contact-img">
-      <img src="image4.jpeg" alt="Beautiful event by Tazza">
-    </div>
+  <div class="contact-bg">
+    <img src="image4.jpeg" alt="Background">
   </div>
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>Let's Start Your Journey</h2>
+      <p>Tell us about your event and let's create something extraordinary together.</p>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary);">Email</span>
+          <span style="font-size: 18px;">eventbytazza@gmail.com</span>
+        </div>
+        <div>
+          <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--primary);">WhatsApp</span>
+          <span style="font-size: 18px;">+234 810 664 9574</span>
+        </div>
+      </div>
+    </div>
 
-  <form class="contact-form" onsubmit="event.preventDefault(); submitToWhatsApp();">
-    <div class="form-row">
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" id="firstName" required>
+    <form class="contact-form" onsubmit="event.preventDefault(); submitToWhatsApp();">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>WhatsApp Number</label>
+          <input type="tel" id="phone" placeholder="+234..." required>
+        </div>
+        <div class="form-group">
+          <label>Event Type</label>
+          <select id="eventType">
+            <option>Wedding</option>
+            <option>Corporate</option>
+            <option>Private Party</option>
+            <option>Birthday</option>
+            <option>Other</option>
+          </select>
+        </div>
       </div>
       <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" id="lastName" required>
+        <label>Your Vision</label>
+        <textarea id="vision" rows="4" placeholder="Tell us about your event..."></textarea>
       </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>WhatsApp Number</label>
-        <input type="tel" id="phone" placeholder="+234..." required>
-      </div>
-      <div class="form-group">
-        <label>Event Type</label>
-        <select id="eventType">
-          <option>Wedding</option>
-          <option>Corporate</option>
-          <option>Private Party</option>
-          <option>Birthday</option>
-          <option>Other</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Your Vision</label>
-      <textarea id="vision" rows="4" placeholder="Tell us about your event..."></textarea>
-    </div>
-    <button type="submit" class="submit-btn">Send via WhatsApp</button>
-  </form>
+      <button type="submit" class="submit-btn">Send via WhatsApp</button>
+    </form>
+  </div>
 </main>
 
 <footer>
