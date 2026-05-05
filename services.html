@@ -484,8 +484,37 @@
         padding: 0 20px;
       }
 
+      .page-header {
+        padding: 100px 20px 40px;
+      }
+
+      .services-section {
+        padding: 60px 20px;
+      }
+
+      .services-grid {
+        gap: 20px;
+      }
+
+      .approach {
+        padding: 60px 20px;
+      }
+
+      .approach .section-header {
+        margin-bottom: 30px;
+      }
+
+      .approach-grid {
+        gap: 20px;
+      }
+
+      .gallery-section {
+        padding: 60px 20px;
+      }
+
       .gallery-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       .gallery-img {
@@ -643,12 +672,15 @@
   <section class="gallery-section">
     <h2>Our Work in Focus</h2>
     <p>Glimpse into the worlds we create.</p>
-    <div class="gallery-grid">
+    <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto;">
       <div class="gallery-img">
         <img src="mummy.jpeg" alt="Event décor">
       </div>
       <div class="gallery-img">
         <img src="image1.jpeg" alt="Venue styling">
+      </div>
+      <div class="gallery-img">
+        <img src="first image.jpeg" alt="Event setup">
       </div>
     </div>
   </section>
