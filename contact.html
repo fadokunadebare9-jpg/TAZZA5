@@ -19,7 +19,19 @@
       --bg-alt: #FBFBFB;
       --border: #EEEEEE;
       --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     * {
@@ -480,7 +492,7 @@
     <p>Tell us about your event and let's create something extraordinary.</p>
   </header>
 
-  <main class="contact-section">
+  <main class="contact-section" data-reveal>
     <div class="contact-bg">
       <img src="image4.jpeg" alt="Background">
     </div>
@@ -581,6 +593,24 @@
     mobileOverlay.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
       mobileOverlay.classList.remove('active');
+    });
+
+    // Reveal on scroll
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      revealObserver.observe(el);
     });
 
     function submitToWhatsApp() {

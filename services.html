@@ -18,7 +18,19 @@
       --bg-alt: #FBFBFB;
       --border: #EEEEEE;
       --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     * {
@@ -513,12 +525,12 @@
       }
 
       .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
       }
 
       .gallery-img {
-        height: 280px;
+        height: 200px;
       }
 
       .footer-content {
@@ -574,7 +586,7 @@
       happen.</p>
   </header>
 
-  <main class="services-section">
+  <main class="services-section" data-reveal>
     <div class="services-grid">
       <div class="service-card">
         <h2>Essential</h2>
@@ -619,7 +631,7 @@
   </main>
 
   <!-- OUR APPROACH -->
-  <section class="approach">
+  <section class="approach" data-reveal>
     <div class="section-header">
       <h2>Our Approach</h2>
       <p>A proven process that ensures every event exceeds expectations.</p>
@@ -669,18 +681,21 @@
   </section>
 
   <!-- GALLERY -->
-  <section class="gallery-section">
+  <section class="gallery-section" data-reveal>
     <h2>Our Work in Focus</h2>
     <p>Glimpse into the worlds we create.</p>
-    <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto;">
+    <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto;">
       <div class="gallery-img">
         <img src="mummy.jpeg" alt="Event décor">
       </div>
       <div class="gallery-img">
-        <img src="image1.jpeg" alt="Venue styling">
+        <img src="Noah.jpeg" alt="Venue styling">
       </div>
       <div class="gallery-img">
         <img src="first image.jpeg" alt="Event setup">
+      </div>
+      <div class="gallery-img">
+        <img src="WhatsApp Image 2026-05-04 at 12.11.09.jpeg" alt="Event detail">
       </div>
     </div>
   </section>
@@ -733,6 +748,24 @@
     mobileOverlay.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
       mobileOverlay.classList.remove('active');
+    });
+
+    // Reveal on scroll
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      revealObserver.observe(el);
     });
   </script>
 

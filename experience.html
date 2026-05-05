@@ -18,7 +18,19 @@
       --bg-alt: #FBFBFB;
       --border: #EEEEEE;
       --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     * {
@@ -416,7 +428,7 @@
     <p>A journey of precision, creativity, and flawless execution.</p>
   </header>
 
-  <main class="section">
+  <main class="section" data-reveal>
     <div class="process-step">
       <div class="step-image">
         <img src="WhatsApp%20Image%202026-05-04%20at%2012.11.09.jpeg" alt="Vision">
@@ -431,7 +443,7 @@
 
     <div class="process-step">
       <div class="step-image">
-        <img src="image1.jpeg" alt="Planning">
+        <img src="WhatsApp Image 2026-05-04 at 10.46.14.jpeg" alt="Planning">
       </div>
       <div class="step-content">
         <span class="step-num">02</span>
@@ -443,7 +455,7 @@
 
     <div class="process-step">
       <div class="step-image">
-        <img src="image4.jpeg" alt="Execution">
+        <img src="first image.jpeg" alt="Execution">
       </div>
       <div class="step-content">
         <span class="step-num">03</span>
@@ -511,6 +523,24 @@
     mobileOverlay.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
       mobileOverlay.classList.remove('active');
+    });
+
+    // Reveal on scroll
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      revealObserver.observe(el);
     });
   </script>
 

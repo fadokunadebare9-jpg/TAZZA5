@@ -19,7 +19,19 @@
       --bg-alt: #FBFBFB;
       --border: #EEEEEE;
       --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     * {
@@ -596,12 +608,16 @@
       }
 
       .gallery-section {
-        padding: 60px 20px;
+        padding: 40px 20px;
       }
 
       .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .gallery-grid div {
+        height: 250px !important;
       }
 
       .cta-banner {
@@ -672,7 +688,7 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section class="about">
+    <section class="about" data-reveal>
       <div class="about-inner">
         <div class="about-image">
           <img src="image1.jpeg" alt="Event planning">
@@ -688,7 +704,7 @@
     </section>
 
     <!-- HIGHLIGHT IMAGE -->
-    <section class="highlight-image" style="padding: 0 6%; margin-bottom: 80px;">
+    <section class="highlight-image" style="padding: 0 6%; margin-bottom: 80px;" data-reveal>
       <div
         style="width: 100%; max-width: 1200px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; height: 500px; box-shadow: 0 30px 60px rgba(0,0,0,0.1);">
         <img src="WhatsApp Image 2026-05-04 at 10.46.14.jpeg" alt="Event Highlight"
@@ -697,7 +713,7 @@
     </section>
 
     <!-- SERVICES PREVIEW -->
-    <section class="services">
+    <section class="services" data-reveal>
       <div class="section-header">
         <h2>Our Expertise</h2>
         <p>From concept to execution, we handle every detail so you can enjoy every moment.</p>
@@ -722,7 +738,7 @@
     </section>
 
     <!-- WHY CHOOSE US -->
-    <section class="why-us">
+    <section class="why-us" data-reveal>
       <div class="section-header">
         <h2>Why Tazza?</h2>
         <p>Numbers that reflect our commitment to excellence.</p>
@@ -748,20 +764,13 @@
     </section>
 
     <!-- GALLERY SECTION -->
-    <section class="gallery-section" style="padding: 100px 6%; background: white;">
-      <div class="section-header">
-        <h2>Our Work in Focus</h2>
-        <p>A glimpse into the extraordinary moments we've crafted.</p>
-      </div>
-      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; max-width: 1200px; margin: 60px auto 0;">
-        <div style="border-radius: var(--radius); overflow: hidden; height: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+    <section class="gallery-section" style="padding: 60px 6%; background: white;" data-reveal>
+      <div class="gallery-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1200px; margin: 0 auto;">
+        <div style="border-radius: var(--radius); overflow: hidden; height: 500px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
           <img src="=DORCAS1.jpeg" alt="Event Work" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
         </div>
-        <div style="border-radius: var(--radius); overflow: hidden; height: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
-          <img src="Noah.jpeg" alt="Event Work" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
-        </div>
-        <div style="border-radius: var(--radius); overflow: hidden; height: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
-          <img src="mummy.jpeg" alt="Event Work" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
+        <div style="border-radius: var(--radius); overflow: hidden; height: 500px; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+          <img src="WhatsApp Image 2026-05-04 at 19.26.19.jpeg" alt="Event Work" style="width: 100%; height: 100%; object-fit: cover; transition: var(--transition);">
         </div>
       </div>
     </section>
@@ -816,6 +825,24 @@
     mobileOverlay.addEventListener('click', () => {
       mobileMenu.classList.remove('active');
       mobileOverlay.classList.remove('active');
+    });
+
+    // Reveal on scroll
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      revealObserver.observe(el);
     });
   </script>
 
